@@ -81,7 +81,7 @@ offset = Vector2(64, 0)
 [node name="sword" type="Sprite2D" parent="spritecontainer"]
 position = Vector2(-2.54894, 7.7735)
 rotation = -0.235596
-scale = Vector2(0.265781, 0.0156249)
+scale = Vector2(0.265784, 0.0156249)
 texture = ExtResource("1_hghv2")
 offset = Vector2(64, 0)
 

@@ -48,7 +48,6 @@ collision_mask = 3
 script = ExtResource("1_cvnsp")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2.5, 2.5)
 position_smoothing_speed = 50.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -85,7 +84,7 @@ offset = Vector2(64, 0)
 [node name="sword" type="Sprite2D" parent="spritecontainer"]
 position = Vector2(-2.54894, 7.7735)
 rotation = -0.235596
-scale = Vector2(0.265778, 0.0156249)
+scale = Vector2(0.265782, 0.0156249)
 texture = ExtResource("1_v0iea")
 offset = Vector2(64, 0)
 
