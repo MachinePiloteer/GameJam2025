@@ -84,21 +84,21 @@ position = Vector2(964.64, -116)
 script = ExtResource("5_ym6rs")
 
 [node name="upperarm" parent="enemy/spritecontainer" index="0"]
-rotation = 2.11522
+rotation = 2.11525
 scale = Vector2(0.0624979, 0.0312483)
-skew = 0.00124466
+skew = 0.00124478
 
 [node name="forearm" parent="enemy/spritecontainer" index="1"]
-position = Vector2(-4.14154, -0.159462)
-rotation = 1.39665
-scale = Vector2(0.0624962, 0.0312476)
-skew = 0.00107908
+position = Vector2(-4.14178, -0.15976)
+rotation = 1.39668
+scale = Vector2(0.0624963, 0.0312476)
+skew = 0.00108206
 
 [node name="sword" parent="enemy/spritecontainer" index="2"]
-position = Vector2(-2.75519, 7.72089)
-rotation = -0.231285
-scale = Vector2(0.265727, 0.0156236)
-skew = -0.00106311
+position = Vector2(-2.75562, 7.72086)
+rotation = -0.23128
+scale = Vector2(0.265726, 0.0156236)
+skew = -0.00106764
 
 [node name="upperarm" parent="enemy/bones/Skeleton2D" index="0"]
 rotation = 1.62599

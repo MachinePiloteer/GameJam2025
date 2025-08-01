@@ -369,4 +369,13 @@ func single(array: Array, predicate: Callable) -> PointInfo:
 		push_error("single(): no matching element.")
 		return null
 	return result
+
+# Returns a PackedVector2Array path in **world** coordinates from `from_pos` to `to_pos`.
+func get_path_world(from_pos: Vector2, to_pos: Vector2) -> PackedVector2Array:
+	var start_id = _astarGraph.get_closest_point(from_pos)
+	var goal_id = _astarGraph.get_closest_point(to_pos)
+	if start_id == -1 or goal_id == -1:
+		return PackedVector2Array()
+	var raw_path = _astarGraph.get_point_path(start_id, goal_id)
+	return raw_path
 # ======================== #
