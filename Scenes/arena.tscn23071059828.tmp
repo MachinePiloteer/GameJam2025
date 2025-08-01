@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://cac6wcctw21ra"]
+
+[ext_resource type="Texture2D" uid="uid://b2rsu87ivtgte" path="res://icon.svg" id="1_lq7nq"]
+[ext_resource type="PackedScene" uid="uid://ddr6eeds8xmj6" path="res://Scenes/player.tscn" id="2_ra5jo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ra5jo"]
+size = Vector2(836, 40)
+
+[node name="Arena" type="Node2D"]
+
+[node name="player" parent="." instance=ExtResource("2_ra5jo")]
+position = Vector2(1, -37)
+
+[node name="floor" type="StaticBody2D" parent="."]
+position = Vector2(0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor"]
+shape = SubResource("RectangleShape2D_ra5jo")
+
+[node name="Sprite2D" type="Sprite2D" parent="floor"]
+scale = Vector2(6.53125, 0.3125)
+texture = ExtResource("1_lq7nq")
+
+[node name="wall" type="StaticBody2D" parent="."]
+position = Vector2(-406, -47)
+rotation = -1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall"]
+shape = SubResource("RectangleShape2D_ra5jo")
+
+[node name="Sprite2D" type="Sprite2D" parent="wall"]
+scale = Vector2(6.53125, 0.3125)
+texture = ExtResource("1_lq7nq")
+
+[node name="wall2" type="StaticBody2D" parent="."]
+position = Vector2(418, -40)
+rotation = -1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall2"]
+shape = SubResource("RectangleShape2D_ra5jo")
+
+[node name="Sprite2D" type="Sprite2D" parent="wall2"]
+scale = Vector2(6.53125, 0.3125)
+texture = ExtResource("1_lq7nq")

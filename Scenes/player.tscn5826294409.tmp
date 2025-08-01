@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://dm8bt6pk8uy0k"]
+
+[ext_resource type="Texture2D" uid="uid://b2rsu87ivtgte" path="res://icon.svg" id="1_v0iea"]
+[ext_resource type="Script" uid="uid://d0jplmbg32vsw" path="res://sword.gd" id="2_cvnsp"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6t5aa"]
+radius = 13.0
+height = 34.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vgqql"]
+size = Vector2(4, 36)
+
+[node name="player" type="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_6t5aa")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.21875, 0.28125)
+texture = ExtResource("1_v0iea")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="sword" type="RigidBody2D" parent="."]
+position = Vector2(27, 0)
+script = ExtResource("2_cvnsp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sword"]
+shape = SubResource("RectangleShape2D_vgqql")
+
+[node name="Sprite2D" type="Sprite2D" parent="sword"]
+scale = Vector2(0.03125, 0.28125)
+texture = ExtResource("1_v0iea")
+
+[node name="tip" type="Node2D" parent="sword"]
+position = Vector2(0, -18)
+
+[node name="hands" type="Node2D" parent="sword"]
+position = Vector2(0, 11)

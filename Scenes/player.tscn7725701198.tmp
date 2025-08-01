@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://ddr6eeds8xmj6"]
+
+[ext_resource type="Script" uid="uid://dhbch3e5fjp5x" path="res://Scripts/player.gd" id="1_cvnsp"]
+[ext_resource type="Texture2D" uid="uid://b2rsu87ivtgte" path="res://icon.svg" id="1_v0iea"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cvnsp"]
+radius = 13.0
+height = 34.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6t5aa"]
+radius = 2.0
+height = 36.0
+
+[node name="player" type="CharacterBody2D"]
+script = ExtResource("1_cvnsp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_cvnsp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.21875, 0.28125)
+texture = ExtResource("1_v0iea")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="sword" type="Area2D" parent="."]
+position = Vector2(18, 0)
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sword"]
+shape = SubResource("CapsuleShape2D_6t5aa")
+
+[node name="Sprite2D" type="Sprite2D" parent="sword"]
+scale = Vector2(0.03125, 0.28125)
+texture = ExtResource("1_v0iea")

@@ -1,0 +1,134 @@
+[gd_scene load_steps=7 format=3 uid="uid://cscudd2jcr4yr"]
+
+[ext_resource type="Script" uid="uid://dhbch3e5fjp5x" path="res://Scripts/player.gd" id="1_afpow"]
+[ext_resource type="Texture2D" uid="uid://b2rsu87ivtgte" path="res://icon.svg" id="1_hghv2"]
+[ext_resource type="Texture2D" uid="uid://8f6fsep2ylpr" path="res://Assets/GraphPoint.png" id="3_287tu"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cvnsp"]
+radius = 7.0
+height = 34.0
+
+[sub_resource type="SkeletonModification2DCCDIK" id="SkeletonModification2DCCDIK_cvnsp"]
+target_nodepath = NodePath("../../swordtip")
+tip_nodepath = NodePath("upperarm/forearm/sword/swordtip")
+ccdik_data_chain_length = 3
+joint_data/0/bone_index = 0
+joint_data/0/bone2d_node = NodePath("upperarm")
+joint_data/0/rotate_from_joint = false
+joint_data/0/enable_constraint = false
+joint_data/0/editor_draw_gizmo = true
+joint_data/1/bone_index = 1
+joint_data/1/bone2d_node = NodePath("upperarm/forearm")
+joint_data/1/rotate_from_joint = false
+joint_data/1/enable_constraint = true
+joint_data/1/constraint_angle_min = -140.0
+joint_data/1/constraint_angle_max = 0.0
+joint_data/1/constraint_angle_invert = true
+joint_data/1/constraint_in_localspace = true
+joint_data/1/editor_draw_gizmo = true
+joint_data/2/bone_index = 2
+joint_data/2/bone2d_node = NodePath("upperarm/forearm/sword")
+joint_data/2/rotate_from_joint = false
+joint_data/2/enable_constraint = true
+joint_data/2/constraint_angle_min = -100.0
+joint_data/2/constraint_angle_max = -35.0
+joint_data/2/constraint_angle_invert = false
+joint_data/2/constraint_in_localspace = true
+joint_data/2/editor_draw_gizmo = true
+
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_6t5aa"]
+enabled = true
+strength = 0.99
+modification_count = 1
+modifications/0 = SubResource("SkeletonModification2DCCDIK_cvnsp")
+
+[node name="enemy" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_afpow")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_cvnsp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.125, 0.28125)
+texture = ExtResource("1_hghv2")
+
+[node name="swordtip" type="Node2D" parent="."]
+position = Vector2(30, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="swordtip"]
+texture_filter = 1
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_287tu")
+
+[node name="spritecontainer" type="Node2D" parent="."]
+
+[node name="upperarm" type="Sprite2D" parent="spritecontainer"]
+position = Vector2(0, -7)
+rotation = 2.09861
+scale = Vector2(0.0624963, 0.0312482)
+texture = ExtResource("1_hghv2")
+offset = Vector2(64, 0)
+
+[node name="forearm" type="Sprite2D" parent="spritecontainer"]
+position = Vector2(-4.02922, -0.0886536)
+rotation = 1.3847
+scale = Vector2(0.062498, 0.031249)
+texture = ExtResource("1_hghv2")
+offset = Vector2(64, 0)
+
+[node name="sword" type="Sprite2D" parent="spritecontainer"]
+position = Vector2(-2.54894, 7.7735)
+rotation = -0.235596
+scale = Vector2(0.265779, 0.0156249)
+texture = ExtResource("1_hghv2")
+offset = Vector2(64, 0)
+
+[node name="bones" type="Node2D" parent="."]
+position = Vector2(0, -7)
+
+[node name="Skeleton2D" type="Skeleton2D" parent="bones"]
+modification_stack = SubResource("SkeletonModificationStack2D_6t5aa")
+
+[node name="upperarm" type="Bone2D" parent="bones/Skeleton2D"]
+rotation = 1.22935
+scale = Vector2(0.999982, 0.999982)
+rest = Transform2D(0.334846, 0.942254, -0.942254, 0.334846, 0, 0)
+metadata/_local_pose_override_enabled_ = true
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="bones/Skeleton2D/upperarm"]
+remote_path = NodePath("../../../../spritecontainer/upperarm")
+update_scale = false
+
+[node name="forearm" type="Bone2D" parent="bones/Skeleton2D/upperarm"]
+position = Vector2(8.0002, -1.45435e-05)
+rotation = -0.417739
+scale = Vector2(0.999991, 0.999991)
+rest = Transform2D(0.914001, -0.405691, 0.405691, 0.914001, 8.0002, -1.45435e-05)
+metadata/_local_pose_override_enabled_ = true
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="bones/Skeleton2D/upperarm/forearm"]
+remote_path = NodePath("../../../../../spritecontainer/forearm")
+update_scale = false
+
+[node name="sword" type="Bone2D" parent="bones/Skeleton2D/upperarm/forearm"]
+position = Vector2(8.00045, -6.18696e-05)
+rotation = -1.313
+scale = Vector2(0.999999, 0.999999)
+rest = Transform2D(0.25495, -0.966953, 0.966953, 0.25495, 8.00045, -6.18696e-05)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 0.0
+metadata/_local_pose_override_enabled_ = true
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="bones/Skeleton2D/upperarm/forearm/sword"]
+remote_path = NodePath("../../../../../../spritecontainer/sword")
+update_scale = false
+
+[node name="swordtip" type="Bone2D" parent="bones/Skeleton2D/upperarm/forearm/sword"]
+position = Vector2(34, 0)
+rest = Transform2D(1, 0, 0, 1, 34, 0)
+auto_calculate_length_and_angle = false
+length = 1.0
+bone_angle = 0.0
