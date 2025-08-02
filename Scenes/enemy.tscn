@@ -19,7 +19,7 @@ joint_data/0/bone_index = 0
 joint_data/0/bone2d_node = NodePath("upperarm")
 joint_data/0/rotate_from_joint = false
 joint_data/0/enable_constraint = false
-joint_data/0/editor_draw_gizmo = true
+joint_data/0/editor_draw_gizmo = false
 joint_data/1/bone_index = 1
 joint_data/1/bone2d_node = NodePath("upperarm/forearm")
 joint_data/1/rotate_from_joint = false
@@ -28,7 +28,7 @@ joint_data/1/constraint_angle_min = -140.0
 joint_data/1/constraint_angle_max = 0.0
 joint_data/1/constraint_angle_invert = true
 joint_data/1/constraint_in_localspace = true
-joint_data/1/editor_draw_gizmo = true
+joint_data/1/editor_draw_gizmo = false
 joint_data/2/bone_index = 2
 joint_data/2/bone2d_node = NodePath("upperarm/forearm/sword")
 joint_data/2/rotate_from_joint = false
@@ -37,7 +37,8 @@ joint_data/2/constraint_angle_min = -100.0
 joint_data/2/constraint_angle_max = -35.0
 joint_data/2/constraint_angle_invert = false
 joint_data/2/constraint_in_localspace = true
-joint_data/2/editor_draw_gizmo = true
+joint_data/2/editor_draw_gizmo = false
+editor/draw_gizmo = false
 
 [sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_6t5aa"]
 enabled = true
@@ -55,6 +56,7 @@ collision_mask = 3
 script = ExtResource("1_afpow")
 
 [node name="enemy_sprite" type="Sprite2D" parent="."]
+z_index = 1
 scale = Vector2(0.125, 0.125)
 texture = ExtResource("1_hghv2")
 
@@ -83,22 +85,22 @@ position = Vector2(50, 0)
 [node name="spritecontainer" type="Node2D" parent="."]
 
 [node name="upperarm" type="Sprite2D" parent="spritecontainer"]
-rotation = 0.444212
-scale = Vector2(0.0624951, 0.0312477)
+rotation = 0.445788
+scale = Vector2(0.0624951, 0.0312476)
 texture = ExtResource("1_hghv2")
 offset = Vector2(64, 0)
 
 [node name="forearm" type="Sprite2D" parent="spritecontainer"]
-position = Vector2(7.22368, 3.438)
-rotation = 0.439629
-scale = Vector2(0.0624973, 0.0312486)
+position = Vector2(7.21823, 3.44936)
+rotation = 0.44161
+scale = Vector2(0.0624973, 0.0312487)
 texture = ExtResource("1_hghv2")
 offset = Vector2(64, 0)
 
 [node name="sword" type="Sprite2D" parent="spritecontainer"]
-position = Vector2(14.4632, 6.84288)
-rotation = -0.19127
-scale = Vector2(0.265834, 0.0156243)
+position = Vector2(14.451, 6.86858)
+rotation = -0.191908
+scale = Vector2(0.265834, 0.0156242)
 texture = ExtResource("1_hghv2")
 offset = Vector2(64, 0)
 

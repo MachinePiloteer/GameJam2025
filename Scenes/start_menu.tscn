@@ -1,0 +1,54 @@
+[gd_scene load_steps=2 format=3 uid="uid://b22d73cq8dxrb"]
+
+[ext_resource type="Script" uid="uid://ctgic8jwn34fl" path="res://Scripts/start_menu.gd" id="1_juhg0"]
+
+[node name="StartMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 574.0
+offset_top = 324.0
+offset_right = 614.0
+offset_bottom = 364.0
+script = ExtResource("1_juhg0")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -23.5
+offset_right = 20.0
+offset_bottom = 23.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="title" type="Label" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "PLACEHOLDER TITLE"
+
+[node name="start_button" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "START"
+
+[node name="instructions" type="Label" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "WASD TO MOVE.
+SHIFT TO TIMEJUMP.
+MOVE MOUSE TO POINT SWORD.
+DEFLECT THE BLOWS.
+KILL YOUR FOE."
+horizontal_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.5, 1.5)
+
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/start_button" to="." method="_on_start_button_pressed"]

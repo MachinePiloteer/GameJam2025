@@ -134,7 +134,7 @@ func rewind() -> void:
 	emit_signal("rewind_started")
 
 func _on_hurtbox_got_hit() -> void:
-	print("player dead")
+	get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
 
 func _on_hitbox_clash() -> void:
 	swordtip.global_position = clash_location.global_position

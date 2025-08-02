@@ -29,6 +29,21 @@ var lost_sight_time: float = 0.0
 var has_current_los: bool = false
 
 func _ready() -> void:
+		# detach shared modification stack so each enemy has its own
+	var skel = $bones/Skeleton2D
+	if skel:
+		var original_stack = skel.modification_stack
+		var unique_stack = original_stack.duplicate(true)
+		skel.modification_stack = unique_stack
+
+		# then disable gizmo flags on the unique copy
+		var mods = unique_stack.get("modifications")
+		if mods and typeof(mods) == TYPE_ARRAY:
+			for mod in mods:
+				if typeof(mod) == TYPE_OBJECT and mod is SkeletonModification2DCCDIK:
+					for i in range(mod.joint_data.size()):
+						mod.joint_data[i].editor_draw_gizmo = false
+	
 	if Goal == null:
 		push_warning("Goal (player node) is not assigned! Please assign it in the inspector or via code.")
 		return
@@ -163,7 +178,7 @@ func _on_cooldown_timer_timeout() -> void:
 	is_on_cooldown = false
 
 func _on_hurtbox_got_hit() -> void:
-	print("enemy dead")
+	get_tree().change_scene_to_file("res://Scenes/game_win.tscn")
 
 func _on_hitbox_clash() -> void:
 	swordtip.global_position = clash_location.global_position
