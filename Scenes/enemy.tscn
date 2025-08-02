@@ -1,15 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://ddr6eeds8xmj6"]
+[gd_scene load_steps=10 format=3 uid="uid://ghy8qs8h8vdd"]
 
-[ext_resource type="Script" uid="uid://dhbch3e5fjp5x" path="res://Scripts/player.gd" id="1_cvnsp"]
-[ext_resource type="Texture2D" uid="uid://b2rsu87ivtgte" path="res://icon.svg" id="1_v0iea"]
-[ext_resource type="Texture2D" uid="uid://8f6fsep2ylpr" path="res://Assets/GraphPoint.png" id="3_6t5aa"]
-[ext_resource type="Script" uid="uid://bdyclqnh8qto5" path="res://Scripts/hurtbox.gd" id="3_vgqql"]
-[ext_resource type="Script" uid="uid://4jago7ekq5y3" path="res://Scripts/hitbox.gd" id="5_fkybt"]
+[ext_resource type="Script" uid="uid://35jahqjh4xfr" path="res://Scripts/enemy.gd" id="1_afpow"]
+[ext_resource type="Texture2D" uid="uid://b2rsu87ivtgte" path="res://icon.svg" id="1_hghv2"]
+[ext_resource type="Script" uid="uid://bdyclqnh8qto5" path="res://Scripts/hurtbox.gd" id="3_0830c"]
+[ext_resource type="Script" uid="uid://4jago7ekq5y3" path="res://Scripts/hitbox.gd" id="5_0830c"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_6t5aa"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_afpow"]
 radius = 7.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_vgqql"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_287tu"]
 radius = 7.0
 
 [sub_resource type="SkeletonModification2DCCDIK" id="SkeletonModification2DCCDIK_cvnsp"]
@@ -46,71 +45,61 @@ strength = 0.99
 modification_count = 1
 modifications/0 = SubResource("SkeletonModification2DCCDIK_cvnsp")
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6t5aa"]
-radius = 0.783944
-height = 31.3057
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0830c"]
+radius = 0.999961
+height = 31.9986
 
-[node name="player" type="CharacterBody2D"]
+[node name="enemy" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 3
-script = ExtResource("1_cvnsp")
+script = ExtResource("1_afpow")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(1.5, 1.5)
-position_smoothing_speed = 50.0
-
-[node name="player_sprite" type="Sprite2D" parent="."]
+[node name="enemy_sprite" type="Sprite2D" parent="."]
 scale = Vector2(0.125, 0.125)
-texture = ExtResource("1_v0iea")
+texture = ExtResource("1_hghv2")
 
-[node name="clash_location" type="Node2D" parent="player_sprite"]
-position = Vector2(0, 152)
+[node name="clash_location" type="Node2D" parent="enemy_sprite"]
+position = Vector2(-312, 0)
 scale = Vector2(8, 8)
 
-[node name="player_ghost" type="Sprite2D" parent="."]
-scale = Vector2(0.125, 0.125)
-texture = ExtResource("1_v0iea")
+[node name="swordtip_rest" type="Node2D" parent="enemy_sprite"]
+position = Vector2(192, 0)
+scale = Vector2(8, 8)
 
-[node name="player_collision" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_6t5aa")
+[node name="enemy_collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_afpow")
 
 [node name="Hurtbox" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 4
-script = ExtResource("3_vgqql")
+collision_layer = 8
+script = ExtResource("3_0830c")
 metadata/_custom_type_script = "uid://bdyclqnh8qto5"
 
-[node name="player_hurtbox_shape" type="CollisionShape2D" parent="Hurtbox"]
-shape = SubResource("CircleShape2D_vgqql")
+[node name="enemy_hurtbox_shape" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_287tu")
 
 [node name="swordtip" type="Node2D" parent="."]
-position = Vector2(53, -5)
-
-[node name="swordtip_sprite" type="Sprite2D" parent="swordtip"]
-texture_filter = 1
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_6t5aa")
+position = Vector2(50, 0)
 
 [node name="spritecontainer" type="Node2D" parent="."]
 
 [node name="upperarm" type="Sprite2D" parent="spritecontainer"]
-rotation = 0.341782
-scale = Vector2(0.0624963, 0.0312481)
-texture = ExtResource("1_v0iea")
+rotation = 0.444212
+scale = Vector2(0.0624951, 0.0312477)
+texture = ExtResource("1_hghv2")
 offset = Vector2(64, 0)
 
 [node name="forearm" type="Sprite2D" parent="spritecontainer"]
-position = Vector2(7.53733, 2.68134)
-rotation = 0.337604
-scale = Vector2(0.0624974, 0.0312487)
-texture = ExtResource("1_v0iea")
+position = Vector2(7.22368, 3.438)
+rotation = 0.439629
+scale = Vector2(0.0624973, 0.0312486)
+texture = ExtResource("1_hghv2")
 offset = Vector2(64, 0)
 
 [node name="sword" type="Sprite2D" parent="spritecontainer"]
-position = Vector2(15.086, 5.33118)
-rotation = -0.280282
-scale = Vector2(0.265796, 0.0156245)
-texture = ExtResource("1_v0iea")
+position = Vector2(14.4632, 6.84288)
+rotation = -0.19127
+scale = Vector2(0.265834, 0.0156243)
+texture = ExtResource("1_hghv2")
 offset = Vector2(64, 0)
 
 [node name="bones" type="Node2D" parent="."]
@@ -161,21 +150,35 @@ length = 1.0
 bone_angle = 0.0
 
 [node name="Hitbox" type="Area2D" parent="bones/Skeleton2D/upperarm/forearm/sword"]
-collision_mask = 12
-script = ExtResource("5_fkybt")
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("5_0830c")
 metadata/_custom_type_script = "uid://4jago7ekq5y3"
 
-[node name="player_sword_hitbox_shape" type="CollisionShape2D" parent="bones/Skeleton2D/upperarm/forearm/sword/Hitbox"]
-position = Vector2(17.7926, 0.0094223)
+[node name="enemy_sword_hitbox_area" type="CollisionShape2D" parent="bones/Skeleton2D/upperarm/forearm/sword/Hitbox"]
+position = Vector2(17.8657, 0.0817976)
 rotation = 1.57079
-shape = SubResource("CapsuleShape2D_6t5aa")
+shape = SubResource("CapsuleShape2D_0830c")
 
-[node name="cooldown_timer" type="Timer" parent="."]
-wait_time = 0.3
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 3.0
+target_desired_distance = 3.0
+path_postprocessing = 1
 
-[node name="shock_timer" type="Timer" parent="."]
+[node name="nav_timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+autostart = true
+
+[node name="charge_timer" type="Timer" parent="."]
 wait_time = 2.0
 
+[node name="cooldown_timer" type="Timer" parent="."]
+wait_time = 1.5
+
+[connection signal="got_hit" from="Hurtbox" to="." method="_on_hurtbox_got_hit"]
 [connection signal="clash" from="bones/Skeleton2D/upperarm/forearm/sword/Hitbox" to="." method="_on_hitbox_clash"]
+[connection signal="timeout" from="nav_timer" to="." method="_on_nav_timer_timeout"]
+[connection signal="timeout" from="nav_timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="charge_timer" to="." method="_on_charge_timer_timeout"]
 [connection signal="timeout" from="cooldown_timer" to="." method="_on_cooldown_timer_timeout"]
-[connection signal="timeout" from="shock_timer" to="." method="_on_shock_timer_timeout"]
