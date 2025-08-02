@@ -50,25 +50,25 @@ position = Vector2(49.9296, -53)
 
 [node name="upperarm" parent="player/spritecontainer" index="0"]
 rotation = 2.14299
-scale = Vector2(0.0624957, 0.0312491)
+scale = Vector2(0.0624957, 0.0312494)
 skew = 0.00128329
 
 [node name="forearm" parent="player/spritecontainer" index="1"]
-position = Vector2(-4.3308, -0.27597)
-rotation = 1.41197
-scale = Vector2(0.0624736, 0.0312488)
-skew = 0.000663042
+position = Vector2(-4.3307, -0.275909)
+rotation = 1.41195
+scale = Vector2(0.0624641, 0.0312488)
+skew = 0.000665188
 
 [node name="sword" parent="player/spritecontainer" index="2"]
-position = Vector2(-3.06509, 7.626)
-rotation = -0.226666
-scale = Vector2(0.265656, 0.0156185)
-skew = -0.000591636
+position = Vector2(-3.06482, 7.626)
+rotation = -0.226667
+scale = Vector2(0.265657, 0.0156186)
+skew = -0.000593066
 
 [node name="upperarm" parent="player/bones/Skeleton2D" index="0"]
 rotation = 2.04802
 scale = Vector2(0.999843, 1.00013)
-skew = 0.00115061
+skew = 0.00115049
 
 [node name="forearm" parent="player/bones/Skeleton2D/upperarm" index="1"]
 position = Vector2(8.00021, -7.64846e-06)
@@ -83,36 +83,36 @@ scale = Vector2(1.00022, 0.999784)
 [node name="enemy" parent="." instance=ExtResource("4_ul8vc")]
 position = Vector2(964.64, -116)
 script = ExtResource("5_ym6rs")
-path_recalc_interval = 0.25
-node_reach_threshold = 16.0
-jump_height_threshold = 30.0
-speed = 300.0
-jump_velocity = -400.0
-jump_horizontal_boost = 1.0
+path_recalc_interval = null
+node_reach_threshold = null
+jump_height_threshold = null
+speed = null
+jump_velocity = null
+jump_horizontal_boost = null
 player_path = NodePath("../player")
 pathfinder_path = NodePath("../pathfinder")
 
 [node name="upperarm" parent="enemy/spritecontainer" index="0"]
-rotation = 2.14305
+rotation = 2.14309
 scale = Vector2(0.0624957, 0.0312495)
-skew = 0.00128329
+skew = 0.00128341
 
 [node name="forearm" parent="enemy/spritecontainer" index="1"]
-position = Vector2(-4.33105, -0.276215)
-rotation = 1.41202
-scale = Vector2(0.0624835, 0.0312457)
-skew = 0.000664473
+position = Vector2(-4.33093, -0.276703)
+rotation = 1.41204
+scale = Vector2(0.0624831, 0.0312457)
+skew = 0.00066793
 
 [node name="sword" parent="enemy/spritecontainer" index="2"]
-position = Vector2(-3.06531, 7.62585)
-rotation = -0.226659
-scale = Vector2(0.265647, 0.0156227)
-skew = -0.000594378
+position = Vector2(-3.06537, 7.62531)
+rotation = -0.226643
+scale = Vector2(0.265634, 0.0156225)
+skew = -0.000597119
 
 [node name="upperarm" parent="enemy/bones/Skeleton2D" index="0"]
 rotation = 2.04802
 scale = Vector2(0.999843, 1.00013)
-skew = 0.00115061
+skew = 0.00115049
 
 [node name="forearm" parent="enemy/bones/Skeleton2D/upperarm" index="1"]
 position = Vector2(8.00018, -5.98145e-05)

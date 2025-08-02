@@ -4,22 +4,10 @@ extends CharacterBody2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var swordtip: Node2D = $swordtip
 @onready var sword: Bone2D = $bones/Skeleton2D/upperarm/forearm/sword
+@onready var player_ghost: Sprite2D = $player_ghost
+
 
 const SPEED: float = 300.0
-const JUMP_VELOCITY: float = -450.0
-const FALL_MULTIPLIER: float = 2.0
-const LOW_JUMP_MULTIPLIER: float = 2.5
-const COYOTE_TIME: float = 0.1
-const JUMP_BUFFER: float = 0.08
-const WALL_SLIDE_MODIFIER: float = 0.0
-const WALL_JUMP_PUSH: float = 400.0
-
-var gravity_magnitude : int = ProjectSettings.get_setting("physics/2d/default_gravity")
-
-var coyote_timer: float = 0.0
-var jump_buffer: float = 0.0
-
-var is_wall_sliding: bool = false
 
 var replay_duration: float = 3.0
 var rewinding: bool = false
@@ -42,10 +30,6 @@ func _physics_process(delta: float) -> void:
 		return
 
 	move()
-	jump(delta)
-	wall_slide(delta)
-	wall_jump()
-	gravity(delta)
 	move_sword()
 
 	if Input.is_action_just_pressed("rewind"):
@@ -69,63 +53,17 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func move() -> void:
-	var direction := Input.get_axis("movement_left", "movement_right")
-	if direction:
-		velocity.x = lerp(velocity.x, direction * SPEED, 0.2)
+	var horizontal_direction := Input.get_axis("movement_left", "movement_right")
+	if horizontal_direction:
+		velocity.x = lerp(velocity.x, horizontal_direction * SPEED, 0.2)
 	else:
 		velocity.x = lerp(velocity.x, 0.0, 0.2)
-
-func jump(delta) -> void:
-	if is_on_floor():
-		coyote_timer = COYOTE_TIME
+	
+	var vertical_direction := Input.get_axis("movement_up", "movement_down")
+	if vertical_direction:
+		velocity.y = lerp(velocity.y, vertical_direction * SPEED, 0.2)
 	else:
-		coyote_timer = max(coyote_timer - delta, 0)
-
-	if Input.is_action_just_pressed("movement_jump"):
-		jump_buffer = JUMP_BUFFER
-	else:
-		jump_buffer = max(jump_buffer - delta, 0)
-
-	# Jump execution: if we have a buffered jump and are allowed by coyote time / on floor
-	if jump_buffer > 0 and (is_on_floor() or coyote_timer > 0):
-		velocity.y = JUMP_VELOCITY
-		jump_buffer = 0
-		coyote_timer = 0  # consume coyote
-
-func wall_jump() -> void:
-	if is_on_wall() and Input.is_action_pressed("movement_left") and Input.is_action_just_pressed("movement_jump"):
-		velocity.y = JUMP_VELOCITY
-		velocity.x = WALL_JUMP_PUSH
-	if is_on_wall() and Input.is_action_pressed("movement_right") and Input.is_action_just_pressed("movement_jump"):
-		velocity.y = JUMP_VELOCITY
-		velocity.x = -WALL_JUMP_PUSH
-
-func wall_slide(delta) -> void:
-	if is_on_wall() and not is_on_floor():
-		if Input.is_action_pressed("movement_left") or Input.is_action_pressed("movement_right"):
-			is_wall_sliding = true
-		else:
-			is_wall_sliding = false
-	else:
-		is_wall_sliding = false
-
-	if is_wall_sliding:
-		velocity.y += gravity_magnitude * WALL_SLIDE_MODIFIER * delta
-		velocity.y = min(velocity.y, gravity_magnitude * WALL_SLIDE_MODIFIER)
-
-func gravity(delta) -> void:
-	if not is_on_floor():
-		#var gravity_vec = get_gravity()
-		var jump_pressed = Input.is_action_pressed("movement_jump")
-
-		if velocity.y > 0:
-			# Falling: stronger gravity
-			velocity.y += gravity_magnitude * FALL_MULTIPLIER * delta
-		elif velocity.y < 0 and not jump_pressed:
-			# Rising but jump released early
-			velocity.y += gravity_magnitude * LOW_JUMP_MULTIPLIER * delta
-		else:
-			velocity.y += gravity_magnitude * delta
+		velocity.y = lerp(velocity.y, 0.0, 0.2)
 
 func move_sword():
 	var mouse_pos = get_local_mouse_position()

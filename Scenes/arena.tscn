@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=4 uid="uid://daur0tnwkry2i"]
+
+[ext_resource type="PackedScene" uid="uid://ddr6eeds8xmj6" path="res://Scenes/player.tscn" id="1_lq7nq"]
+[ext_resource type="Texture2D" uid="uid://cmie5djq38ctn" path="res://Assets/brickandair.png" id="1_ra5jo"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nnts3"]
+texture = ExtResource("1_ra5jo")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_1v1nj"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_nnts3")
+
+[node name="Arena" type="Node2D"]
+scale = Vector2(1.00141, 1)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAAAP//AAAAAAAAAAABAP//AAAAAAAAAAACAP//AAAAAAAAAAADAP//AAAAAAAAAAAEAP//AAAAAAAAAAAFAP//AAAAAAAAAAAGAP//AAAAAAAAAAAHAP//AAAAAAAAAAAIAP//AAAAAAAAAAAJAP//AAAAAAAAAAAKAP//AAAAAAAAAAALAP//AAAAAAAAAAAMAP//AAAAAAAAAAANAP//AAAAAAAAAAAOAP//AAAAAAAAAAAPAP//AAAAAAAAAAAQAP//AAAAAAAAAAARAP//AAAAAAAAAAASAP//AAAAAAAAAAASAPb/AAAAAAAAAAASAPf/AAAAAAAAAAASAPj/AAAAAAAAAAASAPn/AAAAAAAAAAASAPr/AAAAAAAAAAASAPv/AAAAAAAAAAASAPz/AAAAAAAAAAASAP3/AAAAAAAAAAASAP7/AAAAAAAAAAAAAPb/AAAAAAAAAAAAAPf/AAAAAAAAAAAAAPj/AAAAAAAAAAAAAPn/AAAAAAAAAAAAAPr/AAAAAAAAAAAAAPv/AAAAAAAAAAAAAPz/AAAAAAAAAAAAAP3/AAAAAAAAAAAAAP7/AAAAAAAAAAABAPb/AAAAAAAAAAACAPb/AAAAAAAAAAADAPb/AAAAAAAAAAAEAPb/AAAAAAAAAAAFAPb/AAAAAAAAAAAGAPb/AAAAAAAAAAAHAPb/AAAAAAAAAAAIAPb/AAAAAAAAAAAJAPb/AAAAAAAAAAAKAPb/AAAAAAAAAAALAPb/AAAAAAAAAAAMAPb/AAAAAAAAAAANAPb/AAAAAAAAAAAOAPb/AAAAAAAAAAAPAPb/AAAAAAAAAAAQAPb/AAAAAAAAAAARAPb/AAAAAAAAAAA=")
+tile_set = SubResource("TileSet_1v1nj")
+
+[node name="player" parent="." instance=ExtResource("1_lq7nq")]
+position = Vector2(49.9296, -53)
+
+[node name="upperarm" parent="player/spritecontainer" index="0"]
+rotation = 1.98827
+scale = Vector2(0.0625071, 0.0312437)
+skew = 0.00104511
+
+[node name="forearm" parent="player/spritecontainer" index="1"]
+position = Vector2(-3.24335, 7.31236)
+rotation = 1.22304
+scale = Vector2(0.062455, 0.0312527)
+skew = 0.000213623
+
+[node name="sword" parent="player/spritecontainer" index="2"]
+position = Vector2(-0.516403, 14.835)
+rotation = -0.452465
+scale = Vector2(0.265706, 0.0156156)
+skew = -0.000165343
+
+[node name="upperarm" parent="player/bones/Skeleton2D" index="0"]
+rotation = 1.88051
+scale = Vector2(1.00001, 0.999964)
+skew = 0.000818253
+
+[node name="forearm" parent="player/bones/Skeleton2D/upperarm" index="1"]
+position = Vector2(8.00021, 3.7569e-06)
+rotation = -0.722286
+scale = Vector2(0.999693, 1.00031)
+
+[node name="sword" parent="player/bones/Skeleton2D/upperarm/forearm" index="1"]
+position = Vector2(8.00043, -6.10348e-05)
+rotation = -1.62942
+scale = Vector2(1.00025, 0.999754)
+
+[editable path="player"]
