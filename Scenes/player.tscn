@@ -69,22 +69,22 @@ texture = ExtResource("3_6t5aa")
 
 [node name="upperarm" type="Sprite2D" parent="spritecontainer"]
 position = Vector2(0, -7)
-rotation = 2.09861
+rotation = 2.09862
 scale = Vector2(0.0624963, 0.0312482)
 texture = ExtResource("1_v0iea")
 offset = Vector2(64, 0)
 
 [node name="forearm" type="Sprite2D" parent="spritecontainer"]
-position = Vector2(-4.02922, -0.0886536)
+position = Vector2(-4.02924, -0.0886698)
 rotation = 1.3847
 scale = Vector2(0.062498, 0.031249)
 texture = ExtResource("1_v0iea")
 offset = Vector2(64, 0)
 
 [node name="sword" type="Sprite2D" parent="spritecontainer"]
-position = Vector2(-2.54894, 7.7735)
-rotation = -0.235596
-scale = Vector2(0.265782, 0.0156249)
+position = Vector2(-2.54896, 7.77348)
+rotation = -0.235595
+scale = Vector2(0.265786, 0.0156249)
 texture = ExtResource("1_v0iea")
 offset = Vector2(64, 0)
 
