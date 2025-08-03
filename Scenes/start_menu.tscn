@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://b22d73cq8dxrb"]
+[gd_scene load_steps=5 format=3 uid="uid://b22d73cq8dxrb"]
 
 [ext_resource type="Script" uid="uid://ctgic8jwn34fl" path="res://Scripts/start_menu.gd" id="1_juhg0"]
+[ext_resource type="FontFile" uid="uid://n0iud8xj3blu" path="res://Assets/Art/OS X Darwin.ttf" id="2_m6uer"]
+[ext_resource type="Texture2D" uid="uid://bg6c6nbib5tc1" path="res://Assets/Art/background.png" id="3_a43kq"]
+[ext_resource type="AudioStream" uid="uid://ce7mnm6k67lqk" path="res://Assets/Sound/button_select.wav" id="4_a43kq"]
 
 [node name="StartMenu" type="Control"]
 layout_mode = 3
@@ -27,28 +30,52 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="title" type="Label" parent="CanvasLayer/VBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.960784, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_m6uer")
 theme_override_font_sizes/font_size = 64
-text = "PLACEHOLDER TITLE"
+text = "DETERMINISTIC ASSASSINATION"
+autowrap_mode = 2
 
 [node name="start_button" type="Button" parent="CanvasLayer/VBoxContainer"]
+texture_filter = 1
 layout_mode = 2
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0.960784, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.960784, 0, 1)
+theme_override_fonts/font = ExtResource("2_m6uer")
 theme_override_font_sizes/font_size = 32
-text = "START"
+text = "BEGIN TIMELINE GRAFTING"
 
 [node name="instructions" type="Label" parent="CanvasLayer/VBoxContainer"]
+texture_filter = 1
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(0.960784, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_m6uer")
+theme_override_font_sizes/font_size = 24
 text = "WASD TO MOVE.
 SHIFT TO TIMEJUMP.
-MOVE MOUSE TO POINT SWORD.
+MOVE SWORD WITH MOUSE.
 DEFLECT THE BLOWS.
-KILL YOUR FOE."
+KILL YOUR MARKS.
+THIS HAS ALREADY HAPPENED."
 horizontal_alignment = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(10, 10)
+texture = ExtResource("3_a43kq")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.5, 1.5)
 
+[node name="start_button_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_a43kq")
+
+[node name="transition" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/start_button" to="." method="_on_start_button_pressed"]
+[connection signal="timeout" from="transition" to="." method="_on_transition_timeout"]

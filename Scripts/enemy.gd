@@ -8,6 +8,10 @@ const CHARGE_DURATION = 0.5
 @export var LOS_OBSTACLE_MASK: int = 1 << 0  # adjust to the layer(s) your walls/cover live on
 @export var LOST_SIGHT_MEMORY_DURATION: float = 1.0  # seconds to keep pursuing last seen position
 
+@export var STALK_INTERVAL: float = 5.0
+@export var STALK_JITTER: float = 2.0
+@export var STALK_MEMORY_DURATION: float = 3.0
+
 @onready var navigation_agent_2d: NavigationAgent2D = $NavigationAgent2D
 @onready var nav_timer: Timer = $nav_timer
 @onready var charge_timer: Timer = $charge_timer
@@ -16,6 +20,9 @@ const CHARGE_DURATION = 0.5
 @onready var swordtip: Node2D = $swordtip
 @onready var clash_location: Node2D = $enemy_sprite/clash_location
 @onready var cooldown_timer: Timer = $cooldown_timer
+@onready var death_sound: AudioStreamPlayer = $death_sound
+@onready var transition: Timer = $transition
+
 
 @export var Goal: Node = null  # player node reference
 
@@ -27,6 +34,10 @@ var player_is_rewinding: bool = false
 var last_seen_position: Vector2 = Vector2.ZERO
 var lost_sight_time: float = 0.0
 var has_current_los: bool = false
+
+var stalk_position: Vector2 = Vector2.ZERO
+var stalk_time_since_ping: float = 0.0
+var next_stalk_time: float = 0.0
 
 func _ready() -> void:
 		# detach shared modification stack so each enemy has its own
@@ -49,6 +60,8 @@ func _ready() -> void:
 		return
 
 	navigation_agent_2d.target_position = Goal.global_position
+
+	next_stalk_time = STALK_INTERVAL + randf() * STALK_JITTER * 2.0 - STALK_JITTER
 
 	# Pathfinding updater
 	nav_timer.one_shot = false
@@ -78,6 +91,19 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		return
 
+	# update stalking heartbeat
+	stalk_time_since_ping += delta
+	if stalk_time_since_ping >= next_stalk_time:
+		# snapshot player's current location even if out of sight
+		stalk_position = Goal.global_position
+		# reset timers
+		stalk_time_since_ping = 0.0
+		next_stalk_time = STALK_INTERVAL + (randf() * 2.0 - 1.0) * STALK_JITTER  # base +/- jitter
+
+	if stalk_time_since_ping == 0.0 and not has_current_los:
+		last_seen_position = stalk_position
+		lost_sight_time = 0.0
+
 	# Update line-of-sight / memory
 	has_current_los = has_line_of_sight_to_goal()
 	if has_current_los:
@@ -93,8 +119,12 @@ func _physics_process(delta: float) -> void:
 		effective_target = Goal.global_position
 	elif lost_sight_time <= LOST_SIGHT_MEMORY_DURATION:
 		effective_target = last_seen_position
+	elif stalk_time_since_ping <= STALK_MEMORY_DURATION:
+		# recently got a stalking ping, chase that stale position
+		effective_target = stalk_position
 	else:
 		effective_target = navigation_agent_2d.target_position
+
 
 	# Rotate to face goal only if we currently have LOS and not on cooldown
 	if has_current_los and not is_on_cooldown:
@@ -178,7 +208,7 @@ func _on_cooldown_timer_timeout() -> void:
 	is_on_cooldown = false
 
 func _on_hurtbox_got_hit() -> void:
-	get_tree().change_scene_to_file("res://Scenes/game_win.tscn")
+	death_sound.play()
 
 func _on_hitbox_clash() -> void:
 	swordtip.global_position = clash_location.global_position

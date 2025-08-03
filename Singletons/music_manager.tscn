@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdv6k7ybrqik6"]
+
+[ext_resource type="Script" uid="uid://jqpssne3ga3j" path="res://Singletons/music_manager.gd" id="1_bc2vq"]
+[ext_resource type="AudioStream" uid="uid://b1jknyrj454d4" path="res://Assets/Sound/Rainworld Inspired.mp3" id="2_mlhn3"]
+
+[node name="MusicManager" type="Node"]
+script = ExtResource("1_bc2vq")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_mlhn3")
+volume_db = -5.0

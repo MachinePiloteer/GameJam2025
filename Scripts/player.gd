@@ -5,13 +5,20 @@ extends CharacterBody2D
 @onready var player_ghost: Sprite2D = $player_ghost
 @onready var player_collision: CollisionShape2D = $player_collision
 @onready var hurtbox: Hurtbox = $Hurtbox
+@onready var player_hurtbox_shape: CollisionShape2D = $Hurtbox/player_hurtbox_shape
 @onready var hitbox: Hitbox = $bones/Skeleton2D/upperarm/forearm/sword/Hitbox
+@onready var player_sword_hitbox_shape: CollisionShape2D = $bones/Skeleton2D/upperarm/forearm/sword/Hitbox/player_sword_hitbox_shape
 
 
 @onready var swordtip: Node2D = $swordtip  
 @onready var clash_location: Node2D = $player_sprite/clash_location
 @onready var cooldown_timer: Timer = $cooldown_timer
 @onready var shock_timer: Timer = $shock_timer
+
+@onready var clash_sound: AudioStreamPlayer = $clash_sound
+@onready var death_sound: AudioStreamPlayer = $death_sound
+@onready var rewind_sound: AudioStreamPlayer = $rewind_sound
+@onready var transition: Timer = $transition
 
 
 const SPEED: float = 300.0  
@@ -94,6 +101,10 @@ func compute_rewind(_delta: float) -> void:
 		player_collision.set_deferred("disabled", false)
 		hurtbox.set_deferred("disabled", false)
 		hitbox.set_deferred("disabled", false)
+		hurtbox.monitoring = true
+		player_hurtbox_shape.disabled = false
+		hitbox.monitoring = true
+		player_sword_hitbox_shape.disabled = false
 		rewinding = false
 		if rewind_values["velocity"].size() > 0:
 			velocity = rewind_values["velocity"][0]
@@ -121,6 +132,10 @@ func compute_rewind(_delta: float) -> void:
 		player_collision.set_deferred("disabled", false)
 		hurtbox.set_deferred("disabled", false)
 		hitbox.set_deferred("disabled", false)
+		hurtbox.monitoring = true
+		player_hurtbox_shape.disabled = false
+		hitbox.monitoring = true
+		player_sword_hitbox_shape.disabled = false
 		rewinding = false
 		shock_timer.start()
 
@@ -128,22 +143,31 @@ func rewind() -> void:
 	if rewinding or rewind_values["position"].is_empty():
 		return
 	rewinding = true
+	rewind_sound.play()
 	player_collision.set_deferred("disabled", true)
 	hurtbox.set_deferred("disabled", true)
 	hitbox.set_deferred("disabled", true)
+	hurtbox.monitoring = false
+	player_hurtbox_shape.disabled = true
+	hitbox.monitoring = false
+	player_sword_hitbox_shape.disabled = true
 	emit_signal("rewind_started")
 
 func _on_hurtbox_got_hit() -> void:
-	get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
+	death_sound.play()
+	transition.start()
 
 func _on_hitbox_clash() -> void:
 	swordtip.global_position = clash_location.global_position
+	clash_sound.play()
 	is_on_cooldown = true
 	cooldown_timer.start()
 
 func _on_cooldown_timer_timeout() -> void:
 	is_on_cooldown = false
 
-
 func _on_shock_timer_timeout() -> void:
 	emit_signal("rewind_ended")
+
+func _on_transition_timeout() -> void:
+	get_tree().change_scene_to_file("res://Scenes/game_over.tscn")

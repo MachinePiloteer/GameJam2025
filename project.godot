@@ -15,6 +15,14 @@ run/main_scene="uid://b22d73cq8dxrb"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+MusicManager="*res://Singletons/music_manager.tscn"
+
+[display]
+
+window/size/borderless=true
+
 [input]
 
 movement_left={

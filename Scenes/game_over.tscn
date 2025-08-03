@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://dy674p7c5d4mr"]
+[gd_scene load_steps=5 format=3 uid="uid://dy674p7c5d4mr"]
 
 [ext_resource type="Script" uid="uid://dk1l8516q1p6b" path="res://Scripts/game_over.gd" id="1_ojehl"]
+[ext_resource type="FontFile" uid="uid://n0iud8xj3blu" path="res://Assets/Art/OS X Darwin.ttf" id="2_ek8ke"]
+[ext_resource type="Texture2D" uid="uid://bg6c6nbib5tc1" path="res://Assets/Art/background.png" id="3_eoghk"]
+[ext_resource type="AudioStream" uid="uid://ce7mnm6k67lqk" path="res://Assets/Sound/button_select.wav" id="4_eoghk"]
 
 [node name="GameOver" type="Control"]
 layout_mode = 3
@@ -28,25 +31,35 @@ grow_vertical = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.960784, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_ek8ke")
 theme_override_font_sizes/font_size = 64
-text = "GAME OVER"
+text = "TIMELINE FRACTURED"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="reset_button" type="Button" parent="CanvasLayer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "RESET"
-
 [node name="quit_button" type="Button" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0.960784, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.960784, 0, 1)
+theme_override_fonts/font = ExtResource("2_ek8ke")
 theme_override_font_sizes/font_size = 32
-text = "QUIT"
+text = "RESET GRAFTING PROCEDURE"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(10, 10)
+texture = ExtResource("3_eoghk")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.5, 1.5)
 
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/reset_button" to="." method="_on_button_pressed"]
+[node name="quit_button_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_eoghk")
+
+[node name="transition" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/quit_button" to="." method="_on_quit_button_pressed"]
+[connection signal="timeout" from="transition" to="." method="_on_transition_timeout"]
