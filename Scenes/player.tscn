@@ -102,7 +102,7 @@ texture = ExtResource("3_6t5aa")
 
 [node name="upperarm" type="Sprite2D" parent="spritecontainer"]
 texture_filter = 1
-rotation = 0.989191
+rotation = 0.989317
 scale = Vector2(0.999981, 0.999981)
 texture = ExtResource("2_fkybt")
 offset = Vector2(5.03389, 0.110849)
@@ -111,8 +111,8 @@ region_rect = Rect2(112, 96, 10, 5)
 
 [node name="forearm" type="Sprite2D" parent="spritecontainer"]
 texture_filter = 1
-position = Vector2(4.39497, 6.6847)
-rotation = 0.666435
+position = Vector2(4.39413, 6.68526)
+rotation = 0.666298
 scale = Vector2(0.999971, 0.999971)
 texture = ExtResource("2_fkybt")
 offset = Vector2(5.03734, 0.0321584)
@@ -121,9 +121,9 @@ region_rect = Rect2(112, 96, 10, 5)
 
 [node name="sword" type="Sprite2D" parent="spritecontainer"]
 texture_filter = 1
-position = Vector2(10.6835, 11.6303)
-rotation = -0.540887
-scale = Vector2(0.999972, 0.999972)
+position = Vector2(10.6833, 11.63)
+rotation = -0.540878
+scale = Vector2(0.999971, 0.999971)
 texture = ExtResource("2_fkybt")
 offset = Vector2(15.9889, -0.0821581)
 region_enabled = true
